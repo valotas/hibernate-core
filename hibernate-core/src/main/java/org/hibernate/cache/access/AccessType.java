@@ -30,12 +30,13 @@ import java.io.Serializable;
  * The types of access strategies available.
  *
  * @author Steve Ebersole
+ * @author Yoryos Valotasios
  */
-public class AccessType implements Serializable {
-	public static final AccessType READ_ONLY = new AccessType( "read-only" );
-	public static final AccessType READ_WRITE = new AccessType( "read-write" );
-	public static final AccessType NONSTRICT_READ_WRITE = new AccessType( "nonstrict-read-write" );
-	public static final AccessType TRANSACTIONAL = new AccessType( "transactional" );
+public enum AccessType implements Serializable {
+	READ_ONLY( "read-only" ),
+	READ_WRITE( "read-write" ),
+	NONSTRICT_READ_WRITE( "nonstrict-read-write" ),
+	TRANSACTIONAL( "transactional" );
 
 	private final String name;
 
@@ -48,7 +49,8 @@ public class AccessType implements Serializable {
 	}
 
 	public String toString() {
-		return "AccessType[" + name + "]";
+		//returns AccessType[name]
+		return new StringBuilder(AccessType.class.getSimpleName()).append("[").append(name).append("]").toString();
 	}
 
 	private static AccessType resolve(String name) {
