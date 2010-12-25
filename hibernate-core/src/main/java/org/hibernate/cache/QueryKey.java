@@ -262,7 +262,7 @@ public class QueryKey implements Serializable {
 	 * {@inheritDoc}
 	 */
 	public String toString() {
-		StringBuffer buf = new StringBuffer()
+		StringBuilder buf = new StringBuilder()
 				.append( "sql: " )
 				.append( sqlQueryString );
 		if ( positionalParameterValues != null ) {
