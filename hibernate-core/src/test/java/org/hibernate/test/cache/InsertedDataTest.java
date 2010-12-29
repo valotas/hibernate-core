@@ -51,8 +51,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsert() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -70,10 +69,14 @@ public class InsertedDataTest extends TestCase {
 		s.getTransaction().commit();
 		s.close();
 	}
-
-	public void testInsertWithRollback() {
+	
+	private final void clearCache() {
 		getSessions().getCache().evictEntityRegions();
 		getSessions().getStatistics().clear();
+	}
+
+	public void testInsertWithRollback() {
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -88,8 +91,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertThenUpdate() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -111,8 +113,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertThenUpdateThenRollback() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -134,8 +135,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertWithRefresh() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -157,8 +157,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertWithRefreshThenRollback() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -182,8 +181,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertWithClear() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
@@ -205,8 +203,7 @@ public class InsertedDataTest extends TestCase {
 	}
 
 	public void testInsertWithClearThenRollback() {
-		getSessions().getCache().evictEntityRegions();
-		getSessions().getStatistics().clear();
+		clearCache();
 
 		Session s = openSession();
 		s.beginTransaction();
