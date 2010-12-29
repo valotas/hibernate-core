@@ -97,7 +97,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 	private JDBCContextImpl() {
 	}
 
-	@Override
 	public CallbackCoordinator getJtaSynchronizationCallbackCoordinator() {
 		return jtaSynchronizationCallbackCoordinator;
 	}
@@ -107,21 +106,18 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		return jtaSynchronizationCallbackCoordinator;
 	}
 
-	@Override
 	public void cleanUpJtaSynchronizationCallbackCoordinator() {
 		jtaSynchronizationCallbackCoordinator = null;
 	}
 
 
 	// ConnectionManager.Callback implementation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	@Override
 	public void physicalConnectionObtained(Connection connection) {
 		if ( owner.getFactory().getStatistics().isStatisticsEnabled() ) {
 			owner.getFactory().getStatisticsImplementor().connect();
 		}
 	}
 
-	@Override
 	public void physicalConnectionReleased() {
 		if ( !isTransactionCallbackRegistered ) {
 			afterTransactionCompletion( false, null );
@@ -129,17 +125,14 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		}
 	}
 
-	@Override
 	public void logicalConnectionClosed() {
 		// TODO: anything need to be done?
 	}
 
-	@Override
 	public SessionFactoryImplementor getFactory() {
 		return owner.getFactory();
 	}
 
-	@Override
 	public ConnectionManager getConnectionManager() {
 		return connectionManager;
 	}
@@ -148,7 +141,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		return connectionManager.borrowConnection();
 	}
 	
-	@Override
 	public Connection connection() throws HibernateException {
 		if ( owner.isClosed() ) {
 			throw new SessionException( "Session is closed" );
@@ -157,7 +149,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		return connectionManager.getConnection();
 	}
 
-	@Override
 	public boolean registerCallbackIfNecessary() {
 		if ( isTransactionCallbackRegistered ) {
 			return false;
@@ -169,7 +160,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 
 	}
 
-	@Override
 	public boolean registerSynchronizationIfPossible() {
 		if ( isTransactionCallbackRegistered ) {
 			// we already have a callback registered; either a local
@@ -230,13 +220,11 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		}
 	}
 	
-	@Override
 	public boolean isTransactionInProgress() {
 		return owner.getFactory().getSettings().getTransactionFactory()
 				.isTransactionInProgress( this, owner, hibernateTransaction );
 	}
 
-	@Override
 	public Transaction getTransaction() throws HibernateException {
 		if (hibernateTransaction==null) {
 			hibernateTransaction = owner.getFactory().getSettings()
@@ -246,7 +234,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 		return hibernateTransaction;
 	}
 	
-	@Override
 	public void beforeTransactionCompletion(Transaction tx) {
 		log.trace( "before transaction completion" );
 		owner.beforeTransactionCompletion(tx);
@@ -256,13 +243,11 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 	 * We cannot rely upon this method being called! It is only
 	 * called if we are using Hibernate Transaction API.
 	 */
-	@Override
 	public void afterTransactionBegin(Transaction tx) {
 		log.trace( "after transaction begin" );
 		owner.afterTransactionBegin(tx);
 	}
 
-	@Override
 	public void afterTransactionCompletion(boolean success, Transaction tx) {
 		log.trace( "after transaction completion" );
 
@@ -281,7 +266,6 @@ public class JDBCContextImpl implements ConnectionManagerImpl.Callback, JDBCCont
 	 * Called after executing a query outside the scope of
 	 * a Hibernate or JTA transaction
 	 */
-	@Override
 	public void afterNontransactionalQuery(boolean success) {
 		log.trace( "after autocommit" );
 		try {

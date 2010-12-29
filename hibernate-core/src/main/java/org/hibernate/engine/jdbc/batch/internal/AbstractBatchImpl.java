@@ -130,7 +130,6 @@ public abstract class AbstractBatchImpl implements Batch {
 	 * {@inheritDoc}
 	 */
 	// TODO: should this be final???
-	@Override
 	public void addBatchStatement(Object key, String sql, PreparedStatement preparedStatement) {
 		checkConsistentBatchKey( key );
 		if ( sql == null ) {
