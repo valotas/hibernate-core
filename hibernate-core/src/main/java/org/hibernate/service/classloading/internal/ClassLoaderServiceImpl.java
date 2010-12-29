@@ -124,7 +124,6 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 		this.resourcesClassLoader = resourcesClassLoader;
 	}
 
-	@Override
 	public Class classForName(String className) {
 		for ( ClassLoader classLoader : classLoadingClassLoaders ) {
 			try {
@@ -136,7 +135,6 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 		throw new ClassLoadingException( "Unable to load class [" + className + "]" );
 	}
 
-	@Override
 	public URL locateResource(String name) {
 		// first we try name as a URL
 		try {
@@ -154,7 +152,6 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 		return null;
 	}
 
-	@Override
 	public InputStream locateResourceStream(String name) {
 		// first we try name as a URL
 		try {
@@ -172,7 +169,6 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 		return null;
 	}
 
-	@Override
 	public List<URL> locateResources(String name) {
 		try {
 			Enumeration<URL> urlEnumeration = resourcesClassLoader.getResources( name );
