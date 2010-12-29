@@ -39,12 +39,10 @@ public class JmxServiceInitiator implements ServiceInitiator<JmxService> {
 	public static final String JMX_ENABLED = "hibernate.jmx.enabled";
 	public static final JmxServiceInitiator INSTANCE = new JmxServiceInitiator();
 
-	@Override
 	public Class<JmxService> getServiceInitiated() {
 		return JmxService.class;
 	}
 
-	@Override
 	public JmxService initiateService(Map configValues, ServicesRegistry registry) {
 		return ConfigurationHelper.getBoolean( JMX_ENABLED, configValues, false )
 				? new JmxServiceImpl( configValues )

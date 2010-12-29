@@ -37,12 +37,10 @@ import org.hibernate.service.spi.ServicesRegistry;
 public class JndiServiceInitiator implements ServiceInitiator<JndiService> {
 	public static final JndiServiceInitiator INSTANCE = new JndiServiceInitiator();
 
-	@Override
 	public Class<JndiService> getServiceInitiated() {
 		return JndiService.class;
 	}
 
-	@Override
 	public JndiService initiateService(Map configurationValues, ServicesRegistry registry) {
 		return new JndiServiceImpl( configurationValues );
 	}

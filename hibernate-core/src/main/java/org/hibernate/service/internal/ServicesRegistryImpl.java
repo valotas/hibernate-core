@@ -83,8 +83,6 @@ public class ServicesRegistryImpl implements ServicesRegistry {
 		serviceMap = null;
 	}
 
-	@Override
-	@SuppressWarnings({ "unchecked" })
 	public <T extends Service> T getService(Class<T> serviceRole) {
 		T service = internalGetService( serviceRole );
 		if ( service == null ) {
