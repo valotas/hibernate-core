@@ -32,8 +32,6 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.hibernate.EntityMode;
-import org.hibernate.HibernateException;
-import org.hibernate.transform.AliasToBeanConstructorResultTransformer;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.AliasedTupleSubsetResultTransformer;
 import org.hibernate.transform.CacheableResultTransformer;
@@ -45,7 +43,6 @@ import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.transform.PassThroughResultTransformer;
 import org.hibernate.transform.ToListResultTransformer;
 import org.hibernate.transform.TupleSubsetResultTransformer;
-import org.hibernate.type.SerializationException;
 import org.hibernate.util.SerializationHelper;
 import org.hibernate.util.ArrayHelper;
 
@@ -112,7 +109,7 @@ public class QueryKeyTest extends TestCase {
 	*/
 
 	private void doResultTransformerTest(ResultTransformer transformer, boolean isSingleton) {
-		Map transformerMap = new HashMap();
+		Map<ResultTransformer, String> transformerMap = new HashMap<ResultTransformer, String>();
 
 		transformerMap.put( transformer, "" );
 		assert transformerMap.size() == 1 : "really messed up";
@@ -241,8 +238,8 @@ public class QueryKeyTest extends TestCase {
 	}
 
 	private void doTest(QueryKey key) {
-		Map keyMap = new HashMap();
-		Map transformerMap = new HashMap();
+		Map<QueryKey, String> keyMap = new HashMap<QueryKey, String>();
+		Map<ResultTransformer, String> transformerMap = new HashMap<ResultTransformer, String>();
 
 		keyMap.put( key, "" );
 		assert keyMap.size() == 1 : "really messed up";
