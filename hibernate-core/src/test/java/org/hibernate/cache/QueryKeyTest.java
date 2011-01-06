@@ -54,6 +54,7 @@ import org.hibernate.util.ArrayHelper;
 public class QueryKeyTest extends TestCase {
 	private static final String QUERY_STRING = "the query string";
 
+	@SuppressWarnings( {"serial", "unused"} )
 	public static class AClass implements Serializable {
 		private String propAccessedByField;
 		private String propAccessedByMethod;
