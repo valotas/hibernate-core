@@ -41,6 +41,7 @@ import org.hibernate.util.ArrayHelper;
  *
  * @author Gavin King
  */
+@SuppressWarnings("serial")
 public final class CacheEntry implements Serializable {
 
 	private final Serializable[] disassembledState;

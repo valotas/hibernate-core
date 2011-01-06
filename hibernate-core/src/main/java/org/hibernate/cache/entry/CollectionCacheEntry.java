@@ -33,6 +33,7 @@ import org.hibernate.util.ArrayHelper;
 /**
  * @author Gavin King
  */
+@SuppressWarnings("serial")
 public class CollectionCacheEntry implements Serializable {
 
 	private final Serializable state;
