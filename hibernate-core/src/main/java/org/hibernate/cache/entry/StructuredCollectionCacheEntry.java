@@ -41,7 +41,9 @@ public class StructuredCollectionCacheEntry implements CacheEntryStructure {
 	}
 	
 	public Object destructure(Object item, SessionFactoryImplementor factory) {
-		List list = (List) item;
+		@SuppressWarnings("unchecked")
+		List<Serializable> list = (List<Serializable>) item;
+		
 		return new CollectionCacheEntry( list.toArray( new Serializable[list.size()] ) );
 	}
 

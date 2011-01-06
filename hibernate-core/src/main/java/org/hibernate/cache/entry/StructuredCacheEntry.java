@@ -43,7 +43,9 @@ public class StructuredCacheEntry implements CacheEntryStructure {
 	}
 	
 	public Object destructure(Object item, SessionFactoryImplementor factory) {
-		Map map = (Map) item;
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) item;
+		
 		boolean lazyPropertiesUnfetched = ( (Boolean) map.get("_lazyPropertiesUnfetched") ).booleanValue();
 		String subclass = (String) map.get("_subclass");
 		Object version = map.get("_version");
@@ -59,7 +61,7 @@ public class StructuredCacheEntry implements CacheEntryStructure {
 	public Object structure(Object item) {
 		CacheEntry entry = (CacheEntry) item;
 		String[] names = persister.getPropertyNames();
-		Map map = new HashMap(names.length+2);
+		Map<String, Object> map = new HashMap<String, Object>(names.length+2);
 		map.put( "_subclass", entry.getSubclass() );
 		map.put( "_version", entry.getVersion() );
 		map.put( "_lazyPropertiesUnfetched", entry.areLazyPropertiesUnfetched() ? Boolean.TRUE : Boolean.FALSE );
