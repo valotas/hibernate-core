@@ -31,6 +31,7 @@ import org.hibernate.cfg.Environment;
  *
  * @author Steve Ebersole
  */
+@SuppressWarnings("serial")
 public class NoCachingEnabledException extends CacheException {
 	private static final String MSG =
 	        "Second-level cache is not enabled for usage [" +
