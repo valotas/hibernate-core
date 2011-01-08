@@ -86,7 +86,9 @@ public class SQLServer2005Dialect extends SQLServerDialect {
 	@Override
 	public String getLimitString(String query, int offset, int limit) {
 		// We transform the query to one with an offset and limit if we have an offset and limit to bind
-		if (offset > 1 || limit > 1) return getLimitString(query, true);
+		// Because the first row value is not zero based, we should check for a limit greater that 2 and
+		// not 1 as should someone expect
+		if (offset > 1 || limit > 2) return getLimitString(query, true);
 		return query;
 	}
 
