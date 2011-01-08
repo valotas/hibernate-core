@@ -69,7 +69,7 @@ public class SQLServer2005Dialect extends SQLServerDialect {
 
 	@Override
 	public boolean bindLimitParametersFirst() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -89,7 +89,16 @@ public class SQLServer2005Dialect extends SQLServerDialect {
 		// Because the first row value is not zero based, we should check for a limit greater that 2 and
 		// not 1 as should someone expect
 		if (offset > 1 || limit > 2) return getLimitString(query, true);
-		return query;
+		
+		// Even if we do not want to use an offset and a limit, hibernate will try to bind the parameters
+		// and that is why we add the declaration of them even if we do not use them
+		StringBuilder sql = new StringBuilder(query);
+		insertDeclareBounds(sql);
+		return sql.toString();
+	}
+	
+	protected static void insertDeclareBounds(StringBuilder sql) {
+		sql.insert(0, DECLARE_BOUNDS_STATEMENT);
 	}
 
 	/**
@@ -135,7 +144,9 @@ public class SQLServer2005Dialect extends SQLServerDialect {
 
 		// Wrap the query within a with statement:
 		sb.insert(0, "WITH query AS (").append(") SELECT * FROM query ");
-		sb.append("WHERE __hibernate_row_nr__ BETWEEN ? AND ?");
+		sb.append("WHERE __hibernate_row_nr__ BETWEEN ").append(R_BOUND).append(" AND ").append(L_BOUND);
+
+		insertDeclareBounds(sb);
 
 		return sb.toString();
 	}
