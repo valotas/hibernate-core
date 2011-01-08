@@ -37,6 +37,11 @@ public class SQLServer2005Dialect extends SQLServerDialect {
 	private static final String SELECT = "select";
 	private static final String FROM = "from";
 	private static final String DISTINCT = "distinct";
+	
+	private static final String R_BOUND = "@hbn_rbound__";
+	private static final String L_BOUND = "@hbn_lbound__";
+	private static final String DECLARE_BOUNDS_STATEMENT = String.format("DECLARE %s INT, %s INT; SET %s=?; SET %s=?;", R_BOUND, L_BOUND, R_BOUND, L_BOUND);
+	
 	private static final int MAX_LENGTH = 8000;
 
 	public SQLServer2005Dialect() {
